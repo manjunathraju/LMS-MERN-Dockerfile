@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mynginx:
+    container_name: mynginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    links:
+      - myreact
+
+  myreact:
+    container_name: myreact
+    build:
+      context: ./lmsmern
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - 3200:3200
+    expose:
+      - 3200
+    restart: always
